@@ -1,5 +1,6 @@
 package zg.org.moments;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ import java.util.List;
 
 import zg.org.moments.utils.Constants;
 import zg.org.moments.utils.FetchHandlerThread;
+import zg.org.moments.vo.Image;
 import zg.org.moments.vo.Tween;
 import zg.org.moments.vo.User;
 
@@ -77,25 +80,66 @@ public class MomentsActivity extends AppCompatActivity {
     private TextView senderView = null;
     private TextView contentView = null;
     private ImageView imageView = null;
+    private GridView gridView = null;
+
     public TweenViewHoder(View itemView) {
       super(itemView);
       tweenView = itemView;
       senderView = (TextView)itemView.findViewById(R.id.senderName);
       contentView = (TextView)itemView.findViewById(R.id.tweenContent);
-//      imageView = (ImageView) itemView.findViewById(R.id.senderPicture);
+      imageView = (ImageView)itemView.findViewById(R.id.senderPicture);
+      gridView = (GridView)itemView.findViewById(R.id.gridView);
     }
+
     public void updateViewHoder(Tween tween){
-      String sender = "";
-      String content = "";
-      if(tween.getSender() != null && tween.getSender() !=null && tween.getSender().getName() !=null){
-        sender = tween.getSender().getName();
+      String content = tween.getContent();
+      List<Image> images = tween.getImages();
+      String name = null;
+      String avator = null;
+      Bitmap avatarBitmap = null;
+
+      final User sender = tween.getSender();
+      if(sender != null){
+        name = sender.getName();
+        avator = sender.getAvatar();
+        avatarBitmap = sender.getAvatarBitmap();
       }
-      if(tween.getContent() != null ){
-        content = tween.getContent();
+      if(name != null){
+        senderView.setText(name);
       }
-      senderView.setText(sender);
-      contentView.setText(content);
-//      imageView.setImageURI(Uri.parse(tween.getSender().getProfileImage()));
+      if(content != null){
+        contentView.setText(content);
+      }
+
+      if(avatarBitmap != null){
+        imageView.setImageBitmap(sender.getAvatarBitmap());
+      }else if(avator != null){
+        fetchHandlerThread.fetchImage(avator, new FetchImageCallback(sender, imageView));
+      }
+
+      updateImageGrid(images);
+    }
+
+    public void updateImageGrid(List<Image> images){
+      List<Image> imageList = new ArrayList<Image>();
+
+    }
+  }
+
+  private class FetchImageCallback implements FetchHandlerThread.InvokeCallback{
+    private User user = null;
+    private ImageView imageView = null;
+
+    public FetchImageCallback(User user, ImageView imageView) {
+      this.user = user;
+      this.imageView = imageView;
+    }
+
+    @Override
+    public void callback(Object obj) {
+      Bitmap bitmap = (Bitmap) obj;
+      user.setAvatarBitmap(bitmap);
+      imageView.setImageBitmap(bitmap);
     }
   }
 
@@ -134,7 +178,21 @@ public class MomentsActivity extends AppCompatActivity {
 
     @Override
     public void onFetchTweens(List<Tween> tweens) {
-      recycleView.setAdapter(new TweenAdaper(tweens));
+      List<Tween> tweenList = new ArrayList<Tween>();
+      for(Tween tween : tweens){
+        String content = tween.getContent();
+        User sender = tween.getSender();
+        List<Image> images = tween.getImages();
+        if(content != null || sender != null || (images != null && images.size() > 0)){
+          tweenList.add(tween);
+        }
+      }
+      recycleView.setAdapter(new TweenAdaper(tweenList));
+    }
+
+    @Override
+    public void onFetchImage(Bitmap bitmap, String url) {
+
     }
   }
 }

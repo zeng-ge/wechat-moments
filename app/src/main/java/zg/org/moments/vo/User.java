@@ -1,5 +1,7 @@
 package zg.org.moments.vo;
 
+import android.graphics.Bitmap;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -19,6 +21,9 @@ public class User {
   private String avatar = null;
   @SerializedName("profile-image")
   private String profileImage = null;
+
+  private Bitmap avatarBitmap = null;
+  private Bitmap profileBitmap = null;
 
   public String getName() {
     return name;
@@ -50,5 +55,21 @@ public class User {
 
   public void setProfileImage(String profileImage) {
     this.profileImage = profileImage;
+  }
+
+  public Bitmap getAvatarBitmap() {
+    return avatarBitmap;
+  }
+
+  public void setAvatarBitmap(Bitmap avatarBitmap) {
+    this.avatarBitmap = avatarBitmap;
+  }
+
+  public Bitmap getProfileBitmap() {
+    return profileBitmap;
+  }
+
+  public void setProfileBitmap(Bitmap profileBitmap) {
+    this.profileBitmap = profileBitmap;
   }
 }

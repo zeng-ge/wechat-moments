@@ -21,7 +21,7 @@ import zg.org.moments.vo.User;
 
 public class Fetch {
 
-  public static String load(String url){
+  public static byte[] loadBytes(String url){
     URL uri = null;
     HttpURLConnection connection = null;
     try {
@@ -41,7 +41,11 @@ public class Fetch {
     }
   }
 
-  public static String parseInputStream(InputStream input) throws IOException{
+  public static String load(String url){
+    return new String(loadBytes(url));
+  }
+
+  public static byte[] parseInputStream(InputStream input) throws IOException{
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     int bytesRead = 0;
     byte[] buffer = new byte[1024];
@@ -49,9 +53,8 @@ public class Fetch {
       out.write(buffer, 0, bytesRead);
     }
     out.close();
-    return new String(out.toByteArray());
+    return out.toByteArray();
   }
-
 
 
   public static User loadUser(String url){

@@ -1,5 +1,7 @@
 package zg.org.moments.vo;
 
+import android.graphics.Bitmap;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -17,6 +19,8 @@ public class Tween {
   private User sender = null;
   @SerializedName("comments")
   private List<Comment> comments = null;
+
+  private List<Bitmap> imageBitmap = null;
 
   public String getContent() {
     return content;
@@ -48,5 +52,13 @@ public class Tween {
 
   public void setComments(List<Comment> comments) {
     this.comments = comments;
+  }
+
+  public List<Bitmap> getImageBitmap() {
+    return imageBitmap;
+  }
+
+  public void setImageBitmap(List<Bitmap> imageBitmap) {
+    this.imageBitmap = imageBitmap;
   }
 }

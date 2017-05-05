@@ -1,5 +1,7 @@
 package zg.org.moments.utils;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
@@ -17,16 +19,23 @@ import zg.org.moments.vo.User;
 public class FetchHandlerThread extends HandlerThread {
   private static final int LOAD_USER = 1;
   private static final int LOAD_TWEENS = 2;
+  private static final int LOAD_IMAGE = 3;
   private static String TAG = "fetchHandlerThread";
 
   private Handler responseHandler = null;
   private Handler loadHandler = null;
   private FetchCallback fetchCallback = null;
 
+  public interface InvokeCallback{
+    void callback(Object obj);
+  }
+
   public interface FetchCallback {
     void onFetchUser(User user);
 
     void onFetchTweens(List<Tween> tweens);
+
+    void onFetchImage(Bitmap bitmap, String url);
   }
 
   public FetchHandlerThread(Handler responseHandler, FetchCallback fetchCallback) {
@@ -49,6 +58,11 @@ public class FetchHandlerThread extends HandlerThread {
             List<Tween> tweens = Fetch.loadTweens((String) msg.obj);
             onFetchTweens(tweens);
             break;
+          case LOAD_IMAGE:
+            byte[] bytes = Fetch.loadBytes((String) msg.obj);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            onFetchImage(bitmap, (String)msg.obj);
+            break;
         }
       }
     };
@@ -66,6 +80,26 @@ public class FetchHandlerThread extends HandlerThread {
     this.loadHandler.obtainMessage(LOAD_TWEENS, url).sendToTarget();
   }
 
+  public void fetchImage(String url){
+    this.loadHandler.obtainMessage(LOAD_IMAGE, url).sendToTarget();
+  }
+
+  public void fetchImage(final String url, final InvokeCallback callback){
+    this.loadHandler.post(new Runnable() {
+      @Override
+      public void run() {
+        byte[] bytes = Fetch.loadBytes(url);
+        final Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        responseHandler.post(new Runnable() {
+          @Override
+          public void run() {
+            callback.callback(bitmap);
+          }
+        });
+      }
+    });
+  }
+
   public void onFetchUser(final User user) {
     responseHandler.post(new Runnable() {
       @Override
@@ -80,6 +114,15 @@ public class FetchHandlerThread extends HandlerThread {
       @Override
       public void run() {
         fetchCallback.onFetchTweens(tweens);
+      }
+    });
+  }
+
+  public void onFetchImage(final Bitmap bitmap, final String url){
+    responseHandler.post(new Runnable() {
+      @Override
+      public void run() {
+        fetchCallback.onFetchImage(bitmap, url);
       }
     });
   }
