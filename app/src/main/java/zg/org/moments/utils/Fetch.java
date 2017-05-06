@@ -1,5 +1,7 @@
 package zg.org.moments.utils;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -21,7 +23,7 @@ import zg.org.moments.vo.User;
 
 public class Fetch {
 
-  public static byte[] loadBytes(String url){
+  public static byte[] fetch(String url) throws IOException{
     URL uri = null;
     HttpURLConnection connection = null;
     try {
@@ -29,11 +31,9 @@ public class Fetch {
       connection = (HttpURLConnection) uri.openConnection();
       InputStream in = connection.getInputStream();
       if(connection.getResponseCode() != HttpURLConnection.HTTP_OK){
-        throw new RuntimeException("connection failed");
+        throw new IOException("connection failed");
       }
       return parseInputStream(in);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
     } finally {
       if(connection != null){
         connection.disconnect();
@@ -41,8 +41,23 @@ public class Fetch {
     }
   }
 
+  public static byte[] loadBytes(String url){
+    byte[] bytes = null;
+    try {
+      bytes = fetch(url);
+    }catch (IOException ex){
+      Log.e("Fetch", ex.toString());
+    }
+    return bytes;
+  }
+
   public static String load(String url){
-    return new String(loadBytes(url));
+    byte[] bytes = loadBytes(url);
+    String response = null;
+    if(bytes != null){
+      response = new String(bytes);
+    }
+    return response;
   }
 
   public static byte[] parseInputStream(InputStream input) throws IOException{

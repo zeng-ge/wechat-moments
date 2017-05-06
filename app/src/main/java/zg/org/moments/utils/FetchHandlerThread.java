@@ -89,11 +89,15 @@ public class FetchHandlerThread extends HandlerThread {
       @Override
       public void run() {
         byte[] bytes = Fetch.loadBytes(url);
-        final Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        Bitmap bitmap = null;
+        if(bytes != null){
+          bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        }
+        final Bitmap bm = bitmap;
         responseHandler.post(new Runnable() {
           @Override
           public void run() {
-            callback.callback(bitmap);
+            callback.callback(bm);
           }
         });
       }

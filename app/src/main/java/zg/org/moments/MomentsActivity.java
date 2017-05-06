@@ -12,13 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import zg.org.moments.adpter.GridViewAdpter;
+import zg.org.moments.adpter.ListViewAdapter;
 import zg.org.moments.utils.Constants;
 import zg.org.moments.utils.FetchHandlerThread;
+import zg.org.moments.vo.Comment;
 import zg.org.moments.vo.Image;
 import zg.org.moments.vo.Tween;
 import zg.org.moments.vo.User;
@@ -81,6 +85,7 @@ public class MomentsActivity extends AppCompatActivity {
     private TextView contentView = null;
     private ImageView imageView = null;
     private GridView gridView = null;
+    private ListView listView = null;
 
     public TweenViewHoder(View itemView) {
       super(itemView);
@@ -89,11 +94,13 @@ public class MomentsActivity extends AppCompatActivity {
       contentView = (TextView)itemView.findViewById(R.id.tweenContent);
       imageView = (ImageView)itemView.findViewById(R.id.senderPicture);
       gridView = (GridView)itemView.findViewById(R.id.gridView);
+      listView = (ListView)itemView.findViewById(R.id.tween_comments);
     }
 
-    public void updateViewHoder(Tween tween){
+    public void updateViewHoder(Tween tween, List<Tween> tweens, int position){
       String content = tween.getContent();
       List<Image> images = tween.getImages();
+      List<Comment> comments = tween.getComments();
       String name = null;
       String avator = null;
       Bitmap avatarBitmap = null;
@@ -104,25 +111,60 @@ public class MomentsActivity extends AppCompatActivity {
         avator = sender.getAvatar();
         avatarBitmap = sender.getAvatarBitmap();
       }
-      if(name != null){
-        senderView.setText(name);
+      if(name == null){
+        name = "";
+
       }
-      if(content != null){
-        contentView.setText(content);
+      if(content == null){
+        content = "";
       }
+
+      senderView.setText(name);
+      contentView.setText(content);
 
       if(avatarBitmap != null){
         imageView.setImageBitmap(sender.getAvatarBitmap());
       }else if(avator != null){
         fetchHandlerThread.fetchImage(avator, new FetchImageCallback(sender, imageView));
       }
+      if(images != null && images.size() > 0){
+        updateImageGrid(images);
+      }
 
-      updateImageGrid(images);
+      if(comments != null && comments.size() > 0){
+        updateTweenComments(comments);
+      }
+
+    }
+
+    public void updateTweenComments(List<Comment> comments){
+      listView.setAdapter(new ListViewAdapter(MomentsActivity.this, comments) {
+        @Override
+        protected void updateText(TextView textView, Comment comment) {
+          textView.setText(comment.getContent());
+        }
+      });
     }
 
     public void updateImageGrid(List<Image> images){
-      List<Image> imageList = new ArrayList<Image>();
-
+      gridView.setVisibility(View.VISIBLE);
+      gridView.setAdapter(new GridViewAdpter(MomentsActivity.this, images) {
+        @Override
+        protected void updateImageBitmap(final ImageView imageView, final Image image) {
+          if(image.getBitmap() != null){
+            imageView.setImageBitmap(image.getBitmap());
+          }else{
+            fetchHandlerThread.fetchImage(image.getUrl(), new FetchHandlerThread.InvokeCallback(){
+              @Override
+              public void callback(Object obj) {
+                Bitmap bitmap = (Bitmap)obj;
+                image.setBitmap(bitmap);
+                imageView.setImageBitmap(bitmap);
+              }
+            });
+          }
+        }
+      });
     }
   }
 
@@ -161,7 +203,7 @@ public class MomentsActivity extends AppCompatActivity {
 
     @Override
     public void onBindViewHolder(TweenViewHoder viewHoder, int position) {
-      viewHoder.updateViewHoder(tweens.get(position));
+      viewHoder.updateViewHoder(tweens.get(position), tweens, position);
     }
 
     @Override
