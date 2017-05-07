@@ -1,12 +1,18 @@
 package zg.org.moments;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +20,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,7 +148,28 @@ public class MomentsActivity extends AppCompatActivity {
       listView.setAdapter(new ListViewAdapter(MomentsActivity.this, comments) {
         @Override
         protected void updateText(TextView textView, Comment comment) {
-          textView.setText(comment.getContent());
+          String senderName = "";
+          String commentContent = comment.getContent();
+          User sender = comment.getSender();
+          if(sender != null){
+            senderName = sender.getName();
+          }
+          final String name = senderName;
+          String content = name + ": " +  commentContent;
+          SpannableString spannableString = new SpannableString(content);
+          spannableString.setSpan(new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+              Toast.makeText(MomentsActivity.this, name, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void updateDrawState(TextPaint ds) {
+              ds.setColor(Color.parseColor("#5F9EA0"));
+            }
+          }, 0, senderName.length() + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+          textView.setText(spannableString);
+          textView.setMovementMethod(LinkMovementMethod.getInstance());
         }
       });
     }
