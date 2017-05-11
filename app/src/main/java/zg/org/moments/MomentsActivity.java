@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -93,6 +94,7 @@ public class MomentsActivity extends AppCompatActivity {
     private ImageView imageView = null;
     private GridView gridView = null;
     private ListView listView = null;
+    private LinearLayout linearLayout = null;
 
     public TweenViewHoder(View itemView) {
       super(itemView);
@@ -102,6 +104,7 @@ public class MomentsActivity extends AppCompatActivity {
       imageView = (ImageView)itemView.findViewById(R.id.senderPicture);
       gridView = (GridView)itemView.findViewById(R.id.gridView);
       listView = (ListView)itemView.findViewById(R.id.tween_comments);
+      linearLayout = (LinearLayout) itemView.findViewById(R.id.tween_comment_list);
     }
 
     public void updateViewHoder(Tween tween, List<Tween> tweens, int position){
@@ -140,36 +143,52 @@ public class MomentsActivity extends AppCompatActivity {
 
       if(comments != null && comments.size() > 0){
         updateTweenComments(comments);
+//        renderTweenComments(comments);
       }
 
     }
 
+    public void renderTweenComments(List<Comment> commentList){
+      for(Comment comment:commentList){
+        View view = LayoutInflater.from(MomentsActivity.this).inflate(R.layout.tween_comment, null, false);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        linearLayout.addView(view, layoutParams);
+        TextView textView = (TextView) view.findViewById(R.id.comment);
+        updateTextView(textView, comment);
+      }
+    }
+
+    public void updateTextView(TextView textView, Comment comment){
+      String senderName = "";
+      String commentContent = comment.getContent();
+      User sender = comment.getSender();
+      if(sender != null){
+        senderName = sender.getName();
+      }
+      final String name = senderName;
+      String content = name + ": " +  commentContent;
+      SpannableString spannableString = new SpannableString(content);
+      spannableString.setSpan(new ClickableSpan() {
+        @Override
+        public void onClick(View widget) {
+          Toast.makeText(MomentsActivity.this, name, Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void updateDrawState(TextPaint ds) {
+          ds.setColor(Color.parseColor("#5F9EA0"));
+        }
+      }, 0, senderName.length() + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+      textView.setText(spannableString);
+      textView.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
     public void updateTweenComments(List<Comment> comments){
+//      listView.setVisibility(View.VISIBLE);
       listView.setAdapter(new ListViewAdapter(MomentsActivity.this, comments) {
         @Override
         protected void updateText(TextView textView, Comment comment) {
-          String senderName = "";
-          String commentContent = comment.getContent();
-          User sender = comment.getSender();
-          if(sender != null){
-            senderName = sender.getName();
-          }
-          final String name = senderName;
-          String content = name + ": " +  commentContent;
-          SpannableString spannableString = new SpannableString(content);
-          spannableString.setSpan(new ClickableSpan() {
-            @Override
-            public void onClick(View widget) {
-              Toast.makeText(MomentsActivity.this, name, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void updateDrawState(TextPaint ds) {
-              ds.setColor(Color.parseColor("#5F9EA0"));
-            }
-          }, 0, senderName.length() + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-          textView.setText(spannableString);
-          textView.setMovementMethod(LinkMovementMethod.getInstance());
+          updateTextView(textView, comment);
         }
       });
     }
