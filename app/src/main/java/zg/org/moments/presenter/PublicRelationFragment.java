@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,8 +21,12 @@ import zg.org.moments.R;
 public class PublicRelationFragment extends Fragment {
 
   public static String TAG = "public_relation_fragment";
-  public ViewPager viewPager = null;
-  public TabLayout tabLayout = null;
+  private ViewPager viewPager = null;
+  private TabLayout tabLayout = null;
+
+  public PublicRelationFragment(){
+  }
+
 
   public static Fragment getInstance(){
     return new PublicRelationFragment();
@@ -40,27 +46,42 @@ public class PublicRelationFragment extends Fragment {
     tabLayout = (TabLayout) view.findViewById(R.id.public_relation_activity_tab_header);
     viewPager = (ViewPager) view.findViewById(R.id.public_relation_activity_tab_body);
 
-    tabLayout.addTab(tabLayout.newTab().setText(R.string.public_relation_activity_info));
-    tabLayout.addTab(tabLayout.newTab().setText(R.string.public_relation_activity_docs));
+
+    initEvents();
 
     tabLayout.setupWithViewPager(viewPager);
+    tabLayout.getTabAt(0).setText(R.string.public_relation_activity_info);
+    tabLayout.getTabAt(1).setText(R.string.public_relation_activity_docs);
+
+    setHasOptionsMenu(true);
 
     return view;
   }
 
   public void initEvents(){
-    viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-    viewPager.setAdapter(new PagerAdapter() {
+
+    FragmentStatePagerAdapter pagerAdapter = new FragmentStatePagerAdapter(getActivity().getSupportFragmentManager()) {
       @Override
-      public int getCount() {
-        return 0;
+      public Fragment getItem(int position) {
+        Fragment fragment = null;
+        switch (position){
+          case 0:
+            fragment = new ActivityInformationFragment();
+            break;
+          case 1:
+            fragment = new DocumentsFragment();
+            break;
+        }
+        return fragment;
       }
 
       @Override
-      public boolean isViewFromObject(View view, Object object) {
-        return false;
+      public int getCount() {
+        return 2;
       }
-    });
+    };
+    viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+    viewPager.setAdapter(pagerAdapter);
 
     tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
       @Override
@@ -80,5 +101,8 @@ public class PublicRelationFragment extends Fragment {
     });
   }
 
-
+  @Override
+  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    inflater.inflate(R.menu.search, menu);
+  }
 }

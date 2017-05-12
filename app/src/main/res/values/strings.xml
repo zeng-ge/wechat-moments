@@ -1,6 +1,28 @@
 <resources>
   <string name="app_name">moments</string>
+
+  <string name="search">search</string>
+
   <string name="public_relation_activity">公关活动</string>
   <string name="public_relation_activity_info">公关活动</string>
-  <string name="public_relation_activity_docs">公关活动</string>
+  <string name="public_relation_activity_docs">文档资料</string>
+
+  <string name="public_relation_activity_basic_info">基本信息</string>
+  <string name="public_relation_activity_name">活动名称</string>
+  <string name="public_relation_activity_time">活动时间</string>
+  <string name="public_relation_activity_location">活动地点</string>
+  <string name="public_relation_activity_level">活动级别</string>
+  <string name="public_relation_activity_media_type">媒体类型</string>
+  <string name="public_relation_activity_responsible_name">项目经理</string>
+  <string name="public_relation_activity_responsible_department">责任部门</string>
+  <string name="public_relation_activity_journalist">活动记者</string>
+
+  <string name="public_relation_activity_team_member">团队成员</string>
+
+  <string name="public_relation_activity_more">更多信息</string>
+  <string name="public_relation_activity_report_count">报道数量</string>
+  <string name="public_relation_activity_sponsor">主办方</string>
+  <string name="public_relation_activity_summary">总结</string>
+
+  <string name="public_relation_activity_document">文档</string>
 </resources>

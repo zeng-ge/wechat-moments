@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:background="@android:color/white">
+
+  <LinearLayout style="@style/publicRelationSection">
+
+    <View style="@style/publicRelationSectionSpacing"/>
+
+    <TextView style="@style/publicRelationRowHeader" android:text="@string/public_relation_activity_basic_info"/>
+
+    <View style="@style/publicRelationDivider"/>
+
+    <LinearLayout style="@style/publicRelationRows">
+
+        <LinearLayout style="@style/publicRelationRow">
+          <TextView style="@style/publicRelationLabel" android:text="@string/public_relation_activity_name" />
+          <TextView style="@style/publicRelationContent" android:id="@+id/public_relation_activity_name"/>
+        </LinearLayout>
+
+        <LinearLayout style="@style/publicRelationRow">
+          <TextView style="@style/publicRelationLabel" android:text="@string/public_relation_activity_time" />
+          <TextView style="@style/publicRelationContent" android:id="@+id/public_relation_activity_time"/>
+        </LinearLayout>
+
+        <LinearLayout style="@style/publicRelationRow">
+          <TextView style="@style/publicRelationLabel" android:text="@string/public_relation_activity_location" />
+          <TextView style="@style/publicRelationContent" android:id="@+id/public_relation_activity_location"/>
+        </LinearLayout>
+
+      <LinearLayout style="@style/publicRelationRow">
+        <TextView style="@style/publicRelationLabel" android:text="@string/public_relation_activity_level" />
+        <TextView style="@style/publicRelationContent" android:id="@+id/public_relation_activity_level"/>
+      </LinearLayout>
+
+      <LinearLayout style="@style/publicRelationRow">
+        <TextView style="@style/publicRelationLabel" android:text="@string/public_relation_activity_media_type" />
+        <TextView style="@style/publicRelationContent" android:id="@+id/public_relation_activity_media_type"/>
+      </LinearLayout>
+
+      <LinearLayout style="@style/publicRelationRow">
+        <TextView style="@style/publicRelationLabel" android:text="@string/public_relation_activity_responsible_name" />
+        <TextView style="@style/publicRelationContent" android:id="@+id/public_relation_activity_responsible_name"/>
+      </LinearLayout>
+
+      <LinearLayout
+        style="@style/publicRelationRow">
+        <TextView style="@style/publicRelationLabel" android:text="@string/public_relation_activity_responsible_department" />
+        <TextView style="@style/publicRelationContent" android:id="@+id/public_relation_activity_responsible_department"/>
+      </LinearLayout>
+
+      <LinearLayout style="@style/publicRelationRow">
+        <TextView style="@style/publicRelationLabel" android:text="@string/public_relation_activity_journalist" />
+        <TextView style="@style/publicRelationContent" android:id="@+id/public_relation_activity_journalist"/>
+      </LinearLayout>
+
+    </LinearLayout>
+
+  </LinearLayout>
+
+  <!--<LinearLayout style="@style/publicRelationSection">-->
+    <!--<TextView style="@style/publicRelationRowHeader" android:text="@string/public_relation_activity_team_member"/>-->
+    <!--<View style="@style/publicRelationDivider"/>-->
+    <!--<LinearLayout style="@style/publicRelationRows" android:id="@+id/team_memberContainer" android:orientation="horizontal"></LinearLayout>-->
+  <!--</LinearLayout>-->
+
+  <LinearLayout style="@style/publicRelationSection">
+    <View style="@style/publicRelationSectionSpacing"/>
+    <TextView style="@style/publicRelationRowHeader" android:text="@string/public_relation_activity_more"/>
+    <View style="@style/publicRelationDivider"/>
+    <LinearLayout style="@style/publicRelationRows">
+      <LinearLayout style="@style/publicRelationRow">
+        <TextView style="@style/publicRelationLabel" android:text="@string/public_relation_activity_report_count" />
+        <TextView style="@style/publicRelationContent" android:id="@+id/public_relation_activity_report_count"/>
+      </LinearLayout>
+
+      <LinearLayout
+        style="@style/publicRelationRow">
+        <TextView style="@style/publicRelationLabel" android:text="@string/public_relation_activity_sponsor" />
+        <TextView style="@style/publicRelationContent" android:id="@+id/public_relation_activity_sponsor"/>
+      </LinearLayout>
+
+      <LinearLayout style="@style/publicRelationRow">
+        <TextView style="@style/publicRelationLabel" android:text="@string/public_relation_activity_summary" />
+        <TextView style="@style/publicRelationContent" android:id="@+id/public_relation_activity_summary"/>
+      </LinearLayout>
+    </LinearLayout>
+  </LinearLayout>
+
+</LinearLayout>

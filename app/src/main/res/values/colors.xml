@@ -3,4 +3,10 @@
   <color name="colorPrimary">#3F51B5</color>
   <color name="colorPrimaryDark">#303F9F</color>
   <color name="colorAccent">#FF4081</color>
+
+  <color name="publicRelationRowLabelColor">#9d9d9d</color>
+  <color name="publicRelationRowContentColor">#4a4a4a</color>
+  <color name="publicRelationDividerColor">#eeeeee</color>
+  <color name="publicRelationTabBorderColor">#10b3ce</color>
+  <color name="publicRelationSectionSpacingColor">#eceef3</color>
 </resources>

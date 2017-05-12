@@ -15,4 +15,61 @@
     <item name="color">@android:color/white</item>
   </style>
 
+  <dimen name="publicRelationRowMarginLeft">10dp</dimen>
+  <dimen name="publicRelationLableWidth">60dp</dimen>
+  <dimen name="publicRelationRowSpacing">5dp</dimen>
+
+  <style name="publicRelationSection">
+    <item name="android:layout_marginBottom">@dimen/publicRelationRowSpacing</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:orientation">vertical</item>
+  </style>
+
+  <style name="publicRelationSectionSpacing">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">8dp</item>
+    <item name="android:background">@color/publicRelationSectionSpacingColor</item>
+  </style>
+
+  <style name="publicRelationRows">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:orientation">vertical</item>
+  </style>
+
+  <style name="publicRelationRowHeader">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginLeft">@dimen/publicRelationRowMarginLeft</item>
+    <item name="android:paddingTop">@dimen/publicRelationRowSpacing</item>
+    <item name="android:paddingBottom">@dimen/publicRelationRowSpacing</item>
+  </style>
+
+  <style name="publicRelationRow">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:orientation">horizontal</item>
+    <item name="android:layout_marginTop">@dimen/publicRelationRowSpacing</item>
+    <item name="android:layout_marginLeft">@dimen/publicRelationRowMarginLeft</item>
+  </style>
+
+  <style name="publicRelationLabel">
+    <item name="android:layout_width">@dimen/publicRelationLableWidth</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:color">@color/publicRelationRowLabelColor</item>
+  </style>
+
+  <style name="publicRelationContent">
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_weight">1</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:color">@color/publicRelationRowContentColor</item>
+  </style>
+
+  <style name="publicRelationDivider">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">1dp</item>
+    <item name="android:background">@color/publicRelationDividerColor</item>
+  </style>
 </resources>
