@@ -7,53 +7,103 @@
 
   <LinearLayout style="@style/publicRelationSection">
 
-    <View style="@style/publicRelationSectionSpacing"/>
+    <View style="@style/publicRelationSectionSpacing" />
 
-    <TextView style="@style/publicRelationRowHeader" android:text="@string/public_relation_activity_basic_info"/>
+    <TextView
+      style="@style/publicRelationRowHeader"
+      android:text="@string/public_relation_activity_basic_info" />
 
-    <View style="@style/publicRelationDivider"/>
+    <View style="@style/publicRelationDivider" />
 
     <LinearLayout style="@style/publicRelationRows">
 
-        <LinearLayout style="@style/publicRelationRow">
-          <TextView style="@style/publicRelationLabel" android:text="@string/public_relation_activity_name" />
-          <TextView style="@style/publicRelationContent" android:id="@+id/public_relation_activity_name"/>
-        </LinearLayout>
-
-        <LinearLayout style="@style/publicRelationRow">
-          <TextView style="@style/publicRelationLabel" android:text="@string/public_relation_activity_time" />
-          <TextView style="@style/publicRelationContent" android:id="@+id/public_relation_activity_time"/>
-        </LinearLayout>
-
-        <LinearLayout style="@style/publicRelationRow">
-          <TextView style="@style/publicRelationLabel" android:text="@string/public_relation_activity_location" />
-          <TextView style="@style/publicRelationContent" android:id="@+id/public_relation_activity_location"/>
-        </LinearLayout>
-
       <LinearLayout style="@style/publicRelationRow">
-        <TextView style="@style/publicRelationLabel" android:text="@string/public_relation_activity_level" />
-        <TextView style="@style/publicRelationContent" android:id="@+id/public_relation_activity_level"/>
+
+        <TextView
+          style="@style/publicRelationLabel"
+          android:text="@string/public_relation_activity_name" />
+
+        <TextView
+          android:id="@+id/public_relation_activity_name"
+          style="@style/publicRelationContent"
+          android:text="asdfasdf" />
       </LinearLayout>
 
       <LinearLayout style="@style/publicRelationRow">
-        <TextView style="@style/publicRelationLabel" android:text="@string/public_relation_activity_media_type" />
-        <TextView style="@style/publicRelationContent" android:id="@+id/public_relation_activity_media_type"/>
+
+        <TextView
+          style="@style/publicRelationLabel"
+          android:text="@string/public_relation_activity_time" />
+
+        <TextView
+          android:id="@+id/public_relation_activity_time"
+          style="@style/publicRelationContent" />
       </LinearLayout>
 
       <LinearLayout style="@style/publicRelationRow">
-        <TextView style="@style/publicRelationLabel" android:text="@string/public_relation_activity_responsible_name" />
-        <TextView style="@style/publicRelationContent" android:id="@+id/public_relation_activity_responsible_name"/>
-      </LinearLayout>
 
-      <LinearLayout
-        style="@style/publicRelationRow">
-        <TextView style="@style/publicRelationLabel" android:text="@string/public_relation_activity_responsible_department" />
-        <TextView style="@style/publicRelationContent" android:id="@+id/public_relation_activity_responsible_department"/>
+        <TextView
+          style="@style/publicRelationLabel"
+          android:text="@string/public_relation_activity_location" />
+
+        <TextView
+          android:id="@+id/public_relation_activity_location"
+          style="@style/publicRelationContent" />
       </LinearLayout>
 
       <LinearLayout style="@style/publicRelationRow">
-        <TextView style="@style/publicRelationLabel" android:text="@string/public_relation_activity_journalist" />
-        <TextView style="@style/publicRelationContent" android:id="@+id/public_relation_activity_journalist"/>
+
+        <TextView
+          style="@style/publicRelationLabel"
+          android:text="@string/public_relation_activity_level" />
+
+        <TextView
+          android:id="@+id/public_relation_activity_level"
+          style="@style/publicRelationContent" />
+      </LinearLayout>
+
+      <LinearLayout style="@style/publicRelationRow">
+
+        <TextView
+          style="@style/publicRelationLabel"
+          android:text="@string/public_relation_activity_media_type" />
+
+        <TextView
+          android:id="@+id/public_relation_activity_media_type"
+          style="@style/publicRelationContent" />
+      </LinearLayout>
+
+      <LinearLayout style="@style/publicRelationRow">
+
+        <TextView
+          style="@style/publicRelationLabel"
+          android:text="@string/public_relation_activity_responsible_name" />
+
+        <TextView
+          android:id="@+id/public_relation_activity_responsible_name"
+          style="@style/publicRelationContent" />
+      </LinearLayout>
+
+      <LinearLayout style="@style/publicRelationRow">
+
+        <TextView
+          style="@style/publicRelationLabel"
+          android:text="@string/public_relation_activity_responsible_department" />
+
+        <TextView
+          android:id="@+id/public_relation_activity_responsible_department"
+          style="@style/publicRelationContent" />
+      </LinearLayout>
+
+      <LinearLayout style="@style/publicRelationRow">
+
+        <TextView
+          style="@style/publicRelationLabel"
+          android:text="@string/public_relation_activity_journalist" />
+
+        <TextView
+          android:id="@+id/public_relation_activity_journalist"
+          style="@style/publicRelationContent" />
       </LinearLayout>
 
     </LinearLayout>

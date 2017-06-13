@@ -5,9 +5,10 @@
   android:padding="10dp"
   android:orientation="horizontal">
   <ImageView
-    android:layout_width="60dp"
-    android:layout_height="60dp"
-    android:src="@mipmap/ic_launcher_round"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:scaleType="fitXY"
+    android:src="@drawable/abc"
     />
   <TextView
     android:layout_width="wrap_content"
@@ -16,5 +17,6 @@
     android:paddingLeft="5dp"
     android:singleLine="true"
     android:text="@string/public_relation_activity_basic_info"
+    android:elevation="10dp"
     />
 </LinearLayout>

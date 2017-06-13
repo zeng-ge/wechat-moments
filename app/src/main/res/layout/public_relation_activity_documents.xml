@@ -10,8 +10,8 @@
     <View style="@style/publicRelationSectionSpacing"/>
 
     <TextView style="@style/publicRelationRowHeader" android:text="@string/public_relation_activity_document"/>
-    
-    <View style="@style/publicRelationDivider"/>
+
+    <View style="@style/publicRelationDivider" android:elevation="1dp"/>
 
     <ListView
       android:id="@+id/documentContainer"

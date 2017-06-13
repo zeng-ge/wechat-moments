@@ -47,11 +47,17 @@ public class PublicRelationFragment extends Fragment {
     viewPager = (ViewPager) view.findViewById(R.id.public_relation_activity_tab_body);
 
 
+
     initEvents();
 
     tabLayout.setupWithViewPager(viewPager);
-    tabLayout.getTabAt(0).setText(R.string.public_relation_activity_info);
-    tabLayout.getTabAt(1).setText(R.string.public_relation_activity_docs);
+    TabLayout.Tab first = tabLayout.getTabAt(0);
+    TabLayout.Tab second = tabLayout.getTabAt(1);
+    first.setText(R.string.public_relation_activity_info);//公关活动
+    second.setText(R.string.public_relation_activity_docs);//文档资料
+
+
+
 
     setHasOptionsMenu(true);
 
